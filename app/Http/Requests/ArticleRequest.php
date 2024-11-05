@@ -25,7 +25,7 @@ class ArticleRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'min:5', 'max:255', Rule::unique('articles')->ignore($this->route('article'))],
             'images' => ['array', 'required'],
-            'images.*' => ['image', 'max:2048', 'mimes:jpeg,png,jpg'],
+            'images.*' => ['file', 'max:2048', 'mimes:jpeg,png,jpg'],
         ];
     }
 }
