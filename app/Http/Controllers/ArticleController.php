@@ -31,7 +31,7 @@ class ArticleController extends Controller
 
         $this->uploadArticleImages($article, $data['images']);
 
-        return back()->with('success', 'article created succefully');
+        return back()->with('success', 'article created successfully');
     }
 
     public function edit(Article $article)
@@ -45,11 +45,11 @@ class ArticleController extends Controller
     {
         $data = $request->validated();
 
+        $this->deleteArticleImages($article->images);
+
         $article->update([
             'title' => $data['title']
         ]);
-
-        $this->deleteArticleImages($article->images);
 
         $this->uploadArticleImages($article, $data['images']);
 
@@ -81,9 +81,7 @@ class ArticleController extends Controller
     {
         foreach ($images as $image) {
             Storage::disk('public')->delete($image->image_url);
-
             $image->delete();
         }
-
     }
 }
